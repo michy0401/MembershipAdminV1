@@ -49,17 +49,17 @@ $(".btnEditUser").click(function(){
         success: function(answer){
             //answer = JSON.parse(answer);
 
-            $("#editName").val(answer["name"]);
-            $("#editUserName").val(answer["username"]);
-            $("#editProfile").html(answer["profile"]);
-            $("#editProfile").val(answer["profile"]);
-            $("#currentPhoto").val(answer["photo"]);
+            $("#editName").val(answer["nombre"]);
+            $("#editUserName").val(answer["usuario"]);
+            $("#editProfile").html(answer["cargo"]);
+            $("#editProfile").val(answer["cargo"]);
+            $("#currentPhoto").val(answer["foto"]);
 
             $("#currentPassword").val(answer["password"]);
             
 
-            if(answer["photo"] != ""){
-                $(".preview").attr("src", answer["photo"]);
+            if(answer["foto"] != ""){
+                $(".preview").attr("src", answer["foto"]);
             }
 
         }
