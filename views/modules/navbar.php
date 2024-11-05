@@ -25,8 +25,8 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
                   <?php 
-                      if($_SESSION["photo"] != ""){
-                        echo '<img src="'.$_SESSION["photo"].'" class="user-image" alt="UserImage">';
+                      if($_SESSION["foto"] != ""){
+                        echo '<img src="'.$_SESSION["foto"].'" class="user-image" alt="UserImage">';
                       } else{
                         echo '<img src="views/dist/img/user.jpg" class="user-image" alt="UserImage">';
                       }
@@ -34,7 +34,7 @@
 
                   <span class="hidden-xs">
                     <?php 
-                      echo $_SESSION["name"];
+                      echo $_SESSION["usuario"];
                     ?>
                   </span>
                 </a>

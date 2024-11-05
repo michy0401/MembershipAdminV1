@@ -87,7 +87,9 @@ session_start();
 
           if($_GET["ruta"] == "dashboard" ||
             $_GET["ruta"] == "user"||
-            $_GET["ruta"] == "product"||
+            $_GET["ruta"] == "cliente"||
+            $_GET["ruta"] == "aprobarCliente"||
+            $_GET["ruta"] == "registroPago"||
             $_GET["ruta"] == "logOut"){
             include "modules/".$_GET["ruta"].".php";
           }else{

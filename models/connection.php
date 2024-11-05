@@ -2,7 +2,7 @@
 
 class Connection{
     static public function connect(){
-        $link = new PDO("mysql:host=localhost;dbname=inventorySystem",
+        $link = new PDO("mysql:host=localhost;dbname=membershipDataBase",
                         "root", 
                         "d040104a");
 

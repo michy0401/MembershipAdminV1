@@ -7,8 +7,8 @@ class UserController {
 
                 $encrypt = crypt($_POST["loginPassword"], '$6$rounds=1000000$NJy4rIPjpOaU$0ACEYGg/aKCY3v8O8AfyiO7CTfZQ8/W231Qfh2tRLmfdvFD6XfHk12u6hMr9cYIA4hnpjLNSTRtUwYr9km9Ij/');
 
-                $table = "user";
-                $item = "username";
+                $table = "empleado";
+                $item = "usuario";
                 $value = $_POST["loginUser"];
                 
                 // Llamamos al modelo para obtener el usuario
@@ -17,26 +17,26 @@ class UserController {
                 // Verificamos si se obtuvo un resultado de la base de datos
                 if ($answer) {
                     // Verificamos si el usuario y la contraseña coinciden
-                    if ($answer["username"] == $_POST["loginUser"] && $answer["password"] == $encrypt) {
+                    if ($answer["usuario"] == $_POST["loginUser"] && $answer["password"] == $encrypt) {
 
-                        if($answer["status"] == 1){
+                        if($answer["id_estado"] == 1){
 
                             $_SESSION["iniciarSesion"] = "ok";
-                            $_SESSION["id_user"] = $answer["id_user"];
-                            $_SESSION["name"] = $answer["name"];
-                            $_SESSION["username"] = $answer["username"];
-                            $_SESSION["photo"] = $answer["photo"];
-                            $_SESSION["profile"] = $answer["profile"];
+                            $_SESSION["id"] = $answer["id"];
+                            $_SESSION["nombre"] = $answer["nombre"];
+                            $_SESSION["usuario"] = $answer["usuario"];
+                            $_SESSION["foto"] = $answer["foto"];
+                            $_SESSION["cargo"] = $answer["cargo"];
 
                             /*fecha y hora del ultimo login */
                             date_default_timezone_set('America/El_Salvador');
                             $currentDate = date('Y-m-d H:i:s');
 
-                            $item1 = "lastLogIng";
+                            $item1 = "ultimo_login";
                             $value1 = $currentDate;
 
-                            $item2 = "id_user";
-                            $value2 = $answer["id_user"];
+                            $item2 = "id";
+                            $value2 = $answer["id"];
 
                             $lastLogIn = UserModel::mdlUpdateUser($table, $item1, $value1, $item2, $value2);
 
@@ -126,17 +126,18 @@ class UserController {
 
 
                 /* Datos para enviar a la base de datos */
-                $table = "user";
+                $table = "empleado";
 
                 $encrypt = crypt($_POST["newPassword"], '$6$rounds=1000000$NJy4rIPjpOaU$0ACEYGg/aKCY3v8O8AfyiO7CTfZQ8/W231Qfh2tRLmfdvFD6XfHk12u6hMr9cYIA4hnpjLNSTRtUwYr9km9Ij/');
 
                 $data = array(
-                    "name" => $_POST["newName"],
-                    "username" => $_POST["newUserName"],
-                    "password" => $encrypt,  
-                    "profile" => $_POST["newProfile"],
-                    "photo" => $route
+                    "nombre" => $_POST["newName"],
+                    "usuario" => $_POST["newUserName"],
+                    "password" => $encrypt,
+                    "cargo" => $_POST["newProfile"],
+                    "foto" => $route
                 );
+                
 
                 //Llamada al modelo para registrar el usuario 
                 $answer = UserModel::mdlRegisterUser($table, $data);
@@ -176,7 +177,7 @@ class UserController {
 
     /* Mostrar Usuario*/
     static public function ctrShowUser($item, $value){
-        $table = "user";
+        $table = "empleado";
         // Llamamos al modelo para obtener el usuario
         $answer = UserModel::mdlShowUser($table, $item, $value);
 
@@ -249,7 +250,7 @@ class UserController {
                 }
 
                 /* Datos para enviar a la base de datos */
-                $table = "user";
+                $table = "empleado";
 
                 if ($_POST["editPassword"] != ""){
                 
@@ -280,11 +281,11 @@ class UserController {
                 }
 
                 $data = array(
-                    "name" => $_POST["editName"],
-                    "username" => $_POST["editUserName"],
+                    "nombre" => $_POST["editName"],
+                    "usuario" => $_POST["editUserName"],
                     "password" => $encrypt,  
-                    "profile" => $_POST["editProfile"],
-                    "photo" => $route
+                    "cargo" => $_POST["editProfile"],
+                    "foto" => $route
                 );
 
                 $answer = UserModel::mdlEditUser($table, $data);
@@ -326,7 +327,7 @@ class UserController {
     /*borrar usuario */
     static public function crtDeleteUser(){
         if(isset($_GET["idUser"])){
-            $table = "user";
+            $table = "empleado";
             $data = $_GET["idUser"];
 
             

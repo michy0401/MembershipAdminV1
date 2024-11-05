@@ -8,7 +8,7 @@ class AjaxUser{
     public $idUser;
 
     public function ajaxEditUser (){
-        $item = "id_user";
+        $item = "id";
         $value = $this-> idUser;
         $answer = UserController::ctrShowUser($item, $value);
 
@@ -21,10 +21,10 @@ class AjaxUser{
     public $activateId;
 
     public function ajaxActivateUser(){
-        $table = "user";
-        $item1="status";
+        $table = "empleado";
+        $item1="id_estado";
         $value1=$this->activateUser;
-        $item2="id_user";
+        $item2="id";
         $value2=$this->activateId;
 
         $answer = UserModel::mdlUpdateUser($table, $item1, $value1, $item2, $value2);
@@ -37,17 +37,13 @@ class AjaxUser{
     public $validateUser;
 
     public function ajaxValidateUser(){
-        $item = "username";
+        $item = "usuario";
         $value = $this-> validateUser;
         $answer = UserController::ctrShowUser($item, $value);
 
         echo json_encode($answer);
 
     }
-
-    
-
-
 }
 
 /*editar usuario*/

@@ -21,35 +21,36 @@ class UserModel{
         $stmt = null;
     }
 
+
     static public function mdlRegisterUser($table, $data){
-        $stmt = Connection::connect()->prepare("INSERT INTO $table(name, username, password, profile, photo) VALUES (:name, :username, :password, :profile, :photo)");
-
-        $stmt -> bindParam(":name", $data["name"], PDO:: PARAM_STR);
-        $stmt -> bindParam(":username", $data["username"], PDO:: PARAM_STR);
+        $stmt = Connection::connect()->prepare("INSERT INTO $table(nombre, usuario, password, cargo, foto) VALUES (:nombre, :usuario, :password, :cargo, :foto)");
+    
+        $stmt -> bindParam(":nombre", $data["nombre"], PDO:: PARAM_STR);
+        $stmt -> bindParam(":usuario", $data["usuario"], PDO:: PARAM_STR);
         $stmt -> bindParam(":password", $data["password"], PDO:: PARAM_STR);
-        $stmt -> bindParam(":profile", $data["profile"], PDO:: PARAM_STR);
-        $stmt -> bindParam(":photo", $data["photo"], PDO:: PARAM_STR);
-        
-
-        if ($stmt -> execute()){
+        $stmt -> bindParam(":cargo", $data["cargo"], PDO:: PARAM_STR);  
+        $stmt -> bindParam(":foto", $data["foto"], PDO:: PARAM_STR);
+    
+        if ($stmt -> execute()) {
             return "ok";
-        }else{
+        } else {
             return "error";
         }
 
         $stmt -> close();
         $stmt = null;
     }
+    
 
     /*editar usuario */
     static public function mdlEditUser($table, $data){
-        $stmt = Connection::connect()->prepare("UPDATE $table SET name = :name, password = :password, profile = :profile, photo = :photo WHERE username = :username");
+        $stmt = Connection::connect()->prepare("UPDATE $table SET nombre = :nombre, password = :password, cargo = :cargo, foto = :foto WHERE usuario = :usuario");
         
-        $stmt -> bindParam(":name", $data["name"], PDO:: PARAM_STR);
+        $stmt -> bindParam(":nombre", $data["nombre"], PDO:: PARAM_STR);
         $stmt -> bindParam(":password", $data["password"], PDO:: PARAM_STR);
-        $stmt -> bindParam(":profile", $data["profile"], PDO:: PARAM_STR);
-        $stmt -> bindParam(":photo", $data["photo"], PDO:: PARAM_STR);
-        $stmt -> bindParam(":username", $data["username"], PDO:: PARAM_STR);
+        $stmt -> bindParam(":cargo", $data["cargo"], PDO:: PARAM_STR);
+        $stmt -> bindParam(":foto", $data["foto"], PDO:: PARAM_STR);
+        $stmt -> bindParam(":usuario", $data["usuario"], PDO:: PARAM_STR);
 
         if ($stmt -> execute()){
             return "ok";
@@ -82,9 +83,9 @@ class UserModel{
     /*borrar usuario */
 
     static public function mdlDeleteUser($table, $data){
-        $stmt = Connection::connect()->prepare("DELETE FROM $table WHERE id_user = :idUser" );
+        $stmt = Connection::connect()->prepare("DELETE FROM $table WHERE id = :id" );
 
-        $stmt -> bindParam(":idUser", $data, PDO::PARAM_INT);
+        $stmt -> bindParam(":id", $data, PDO::PARAM_INT);
 
         if ($stmt -> execute()){
             return "ok";

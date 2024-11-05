@@ -33,13 +33,13 @@
                         <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
-                                <th>Name</th>
-                                <th>Username</th>
-                                <th>Photo</th>
-                                <th>Profile</th>
-                                <th>Status</th>
-                                <th>Last Log In</th>
-                                <th>Actions</th>
+                                <th>Nombre</th>
+                                <th>Usuario</th>
+                                <th>Foto</th>
+                                <th>Perfil</th>
+                                <th>Estado</th>
+                                <th>Ultimo Login</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,38 +52,38 @@
                                 foreach($users as $key => $value){
                                     echo '
                                     <tr>
-                                        <td>1</td>
-                                        <td>'.$value["name"].'</td>
-                                        <td>'.$value["username"].'</td>';
+                                        <td>'.$value["id"].'</td>
+                                        <td>'.$value["nombre"].'</td>
+                                        <td>'.$value["usuario"].'</td>';
 
-                                        if ($value["photo"] != ""){
-                                            echo '<td><img src="'.$value["photo"].'" class="img-thumbnail" width="40px"></td>';
+                                        if ($value["foto"] != ""){
+                                            echo '<td><img src="'.$value["foto"].'" class="img-thumbnail" width="40px"></td>';
                                         } else{
                                             echo '<td><img src="views/dist/img/user.jpg" class="img-thumbnail" width="40px"></td>';
                                         }
 
                                         echo '
-                                            <td>'.$value["profile"].'</td>
+                                            <td>'.$value["cargo"].'</td>
                                         ';
 
-                                        if ($value["status"] != 0){
+                                        if ($value["id_estado"] != 2){
                                             echo '
-                                                <td><button class="btn btn-success btn-xs btnActivate" idUser= "'.$value["id_user"].'"  statusUser = "0">Activo</button></td>
+                                                <td><button class="btn btn-success btn-xs btnActivate" idUser= "'.$value["id"].'"  statusUser = "1">Activate</button></td>
                                             ';
 
                                         } else{
                                             echo '
-                                                <td><button class="btn btn-danger btn-xs btnActivate" idUser= "'.$value["id_user"].'" statusUser = "1">Inactivo</button></td>
+                                                <td><button class="btn btn-danger btn-xs btnActivate" idUser= "'.$value["id"].'" statusUser = "2">Inactivate</button></td>
                                             ';
                                         }
                                             
                                         
                                         echo '
-                                            <td>'.$value["lastLogIng"].'</td>
+                                            <td>'.$value["ultimo_login"].'</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button class="btn btn-warning btnEditUser" idUser="'.$value["id_user"].'" data-toggle="modal" data-target="#modalEditUser"><i class="fas fa-solid fa-pen"></i></button>
-                                                    <button class="btn btn-danger btnDeleteUser" idUser="'.$value["id_user"].'" photoUser="'.$value["photo"].'" username="'.$value["username"].'"><i class="fa fa-solid fa-trash"></i></button>
+                                                    <button class="btn btn-warning btnEditUser" idUser="'.$value["id"].'" data-toggle="modal" data-target="#modalEditUser"><i class="fas fa-solid fa-pen"></i></button>
+                                                    <button class="btn btn-danger btnDeleteUser" idUser="'.$value["id"].'" photoUser="'.$value["foto"].'" username="'.$value["usuario"].'"><i class="fa fa-solid fa-trash"></i></button>
                                                 </div>
                                             </td>
                                     </tr>';
@@ -129,54 +129,53 @@
 
                     <div class="card-body">
 
-                        <form method="post">
-                            <!-- nombre del usuario --> 
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-user"></span>
-                                    </div>
+                        <!-- nombre del usuario --> 
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Name" name="newName" required>
                             </div>
-                            <!-- user --> 
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-key"></span>
-                                    </div>
+                            <input type="text" class="form-control" placeholder="Name" name="newName" required>
+                        </div>
+                        <!-- user --> 
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-key"></span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Username" name="newUserName" id="newUserName" required>
                             </div>
-                            <!-- password --> 
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
+                            <input type="text" class="form-control" placeholder="Username" name="newUserName" id="newUserName" required>
+                        </div>
+                        <!-- password --> 
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
                                 </div>
-                                <input type="password" class="form-control" placeholder="Password" name="newPassword" required>
                             </div>
-                            <!-- profile --> 
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-users"></span>
-                                    </div>
+                            <input type="password" class="form-control" placeholder="Password" name="newPassword" required>
+                        </div>
+                        <!-- profile --> 
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-users"></span>
                                 </div>
-                                <select type="text" class="form-control" name="newProfile" required>
-                                    <option value="">Seleccionar perfil</option>
-                                    <option value="Manager">Manager</option>
-                                    <option value="Seller">Seller</option>
-                                </select>
                             </div>
-                            <!-- photo --> 
-                            <div class="input-group mb-3">
-                                <div class="panel">UPLOAD PHOTO</div>
-                                <input type="file" class="newPhoto" name="newPhoto">                               
-                                <p class="text-muted">Peso max de la foto 2MB</p>                                
-                                <img src="views/dist/img/user.jpg" class="img-thumbnail preview" width="100px" style="margin-top:50px;">
-                            </div>
+                            <select type="text" class="form-control" name="newProfile" required>
+                                <option value="">Seleccionar perfil</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Seller">Seller</option>
+                            </select>
+                        </div>
+                        <!-- photo --> 
+                        <div class="input-group mb-3">
+                            <div class="panel">UPLOAD PHOTO</div>
+                            <input type="file" class="newPhoto" name="newPhoto">                               
+                            <p class="text-muted">Peso max de la foto 2MB</p>                                
+                            <img src="views/dist/img/user.jpg" class="img-thumbnail preview" width="100px" style="margin-top:50px;">
+                        </div>
                         
 
                     </div>
@@ -224,56 +223,55 @@
 
                     <div class="card-body">
 
-                        <form method="post">
-                            <!-- nombre del usuario --> 
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-user"></span>
-                                    </div>
+                        <!-- nombre del usuario --> 
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
                                 </div>
-                                <input type="text" class="form-control" value="" id="editName" name="editName" required>
                             </div>
-                            <!-- user --> 
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-key"></span>
-                                    </div>
+                            <input type="text" class="form-control" value="" id="editName" name="editName">
+                        </div>
+                        <!-- user --> 
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-key"></span>
                                 </div>
-                                <input type="text" class="form-control" value="" id="editUserName" name="editUserName" readonly>
                             </div>
-                            <!-- password --> 
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
+                            <input type="text" class="form-control" value="" id="editUserName" name="editUserName" readonly>
+                        </div>
+                        <!-- password --> 
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
                                 </div>
-                                <input type="password" class="form-control" placeholder="Write a new Password" name="editPassword">
-                                <input type="hidden" id="currentPassword" name="currentPassword">
                             </div>
-                            <!-- profile --> 
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-users"></span>
-                                    </div>
+                            <input type="password" class="form-control" placeholder="Write a new Password" name="editPassword">
+                            <input type="hidden" id="currentPassword" name="currentPassword">
+                        </div>
+                        <!-- profile --> 
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-users"></span>
                                 </div>
-                                <select type="text" class="form-control" name="editProfile">
-                                    <option value="" id="editProfile"></option>
-                                    <option value="Manager">Manager</option>
-                                    <option value="Seller">Seller</option>
-                                </select>
                             </div>
-                            <!-- photo --> 
-                            <div class="input-group mb-3">
-                                <div class="panel">UPLOAD PHOTO</div>
-                                <input type="file" class="editPhoto" name="editPhoto">                               
-                                <p class="text-muted">Peso max de la foto 2MB</p>                                
-                                <img src="views/dist/img/user.jpg" class="img-thumbnail preview" width="100px" style="margin-top:50px;">
-                                <input type="hidden" name="currentPhoto" id="currentPhoto">
-                            </div>
+                            <select type="text" class="form-control" name="editProfile">
+                                <option value="" id="editProfile"></option>
+                                <option value="Manager">Manager</option>
+                                <option value="Seller">Seller</option>
+                            </select>
+                        </div>
+                        <!-- photo --> 
+                        <div class="input-group mb-3">
+                            <div class="panel">UPLOAD PHOTO</div>
+                            <input type="file" class="editPhoto" name="editPhoto">                               
+                            <p class="text-muted">Peso max de la foto 2MB</p>                                
+                            <img src="views/dist/img/user.jpg" class="img-thumbnail preview" width="100px" style="margin-top:50px;">
+                            <input type="hidden" name="currentPhoto" id="currentPhoto">
+                        </div>
                         
 
                     </div>
