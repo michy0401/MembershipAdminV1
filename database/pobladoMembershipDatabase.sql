@@ -11,10 +11,10 @@ INSERT INTO Estado (estado, entidad) VALUES
 ('pendiente', 'cliente');
 
 -- Poblar la tabla Empleado
-INSERT INTO Empleado (nombre, cargo, id_estado, createdate, usuario,contraseña,foto,ultimo_loging) VALUES 
-('Juan Pérez', 'admin', 1, CURRENT_TIMESTAMP,'juan','12345',NULL,CURRENT_TIMESTAMP), 
-('Ana Gómez', 'vendedor', 1, CURRENT_TIMESTAMP,'ana','12345',NULL,CURRENT_TIMESTAMP), 
-('Carlos Ruiz', 'vendedor', 2, CURRENT_TIMESTAMP,'carlos','12345',NULL,CURRENT_TIMESTAMP);
+INSERT INTO Empleado (nombre, cargo, id_estado, createdate, usuario,password ,foto,ultimo_login) VALUES 
+('Juan Pérez', 'admin', 1, CURRENT_TIMESTAMP,'juan','$6$rounds=1000000$NJy4rIPjpOaU$k3w.GRHHuqvMzz65urHlpkJ0ATw1l3urCIQg/dqI.LubSycrK72iLDnjwDIlMWFnnq2fTfZp19jrIg7D1XmBu0',NULL,CURRENT_TIMESTAMP), 
+('Ana Gómez', 'vendedor', 1, CURRENT_TIMESTAMP,'ana','$6$rounds=1000000$NJy4rIPjpOaU$k3w.GRHHuqvMzz65urHlpkJ0ATw1l3urCIQg/dqI.LubSycrK72iLDnjwDIlMWFnnq2fTfZp19jrIg7D1XmBu0',NULL,CURRENT_TIMESTAMP), 
+('Carlos Ruiz', 'vendedor', 2, CURRENT_TIMESTAMP,'carlos','$6$rounds=1000000$NJy4rIPjpOaU$k3w.GRHHuqvMzz65urHlpkJ0ATw1l3urCIQg/dqI.LubSycrK72iLDnjwDIlMWFnnq2fTfZp19jrIg7D1XmBu0',NULL,CURRENT_TIMESTAMP);
 
 -- Poblar la tabla Membresia
 INSERT INTO Membresia (membresia, precio, beneficios, id_estado, createdate) VALUES 
@@ -52,3 +52,6 @@ INSERT INTO Registro_pago (id_cliente, id_metodo_pago, monto, id_estado, created
 (2, 2, 45.20, 5, CURRENT_TIMESTAMP), 
 (3, 3, 115.00, 5, CURRENT_TIMESTAMP), 
 (4, 1, 130.00, 5, CURRENT_TIMESTAMP);
+
+
+select * from empleado;

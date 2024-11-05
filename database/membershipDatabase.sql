@@ -19,16 +19,15 @@ CREATE TABLE IF NOT EXISTS Empleado
     nombre VARCHAR(100),
     cargo VARCHAR(50),
     id_estado INT,
+    usuario VARCHAR(50) NOT NULL,
+    password TEXT,
+    foto TEXT,
+    ultimo_login DATETIME,
     createdate DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedate DATETIME ON UPDATE CURRENT_TIMESTAMP,
     deletedate DATETIME,
     FOREIGN KEY (id_estado) REFERENCES Estado(id)
 );
-ALTER TABLE Empleado
-ADD COLUMN usuario VARCHAR(50) NOT NULL,
-ADD COLUMN contraseña VARCHAR(100) NOT NULL,
-ADD COLUMN foto VARCHAR(255),
-ADD COLUMN ultimo_loging DATETIME;
 
 -- tabla Membresia solo si no existe
 CREATE TABLE IF NOT EXISTS Membresia
