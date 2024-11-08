@@ -15,21 +15,20 @@ class AjaxUser{
         echo json_encode($answer);
     }
 
-    /*activar usuario*/
-    
-    public $activateUser;
-    public $activateId;
+    public $statusEmployee;
+    public $activateIdEmployee;
 
-    public function ajaxActivateUser(){
-        $table = "empleado";
-        $item1="id_estado";
-        $value1=$this->activateUser;
-        $item2="id";
-        $value2=$this->activateId;
-
-        $answer = UserModel::mdlUpdateUser($table, $item1, $value1, $item2, $value2);
-
-
+    public function ajaxActivateEmployeeStatus() {
+        $table = "empleado"; // Nombre de la tabla de empleados
+        $item1 = "id_estado"; // El campo que deseas actualizar
+        $value1 = $this->statusEmployee; // El nuevo valor del estado
+        $item2 = "id"; // El campo de identificación
+        $value2 = $this->activateIdEmployee; // El ID del empleado
+        
+        // Llamamos al modelo para realizar la actualización
+        $response = UserModel::mdlUpdateEmployeeStatus($table, $item1, $value1, $item2, $value2);
+        
+        echo json_encode($response); // Devolvemos la respuesta
     }
     
     /*validar no rep usuario */
@@ -55,13 +54,12 @@ if (isset($_POST["idUser"])){
 }
 
 /*activar usuario*/
-if (isset($_POST["activateUser"])){
-
-    $activateUser = new AjaxUser();
-    $activateUser -> activateUser = $_POST["activateUser"];
-    $activateUser -> activateId = $_POST["activateId"];
-
-    $activateUser -> ajaxActivateUser();
+if (isset($_POST["statusEmployee"])) {
+    $activateEmployee = new AjaxUser(); // Cambié "AjaxUser" a "AjaxEmployee"
+    $activateEmployee->activateIdEmployee = $_POST["activateIdEmployee"];
+    $activateEmployee->statusEmployee = $_POST["statusEmployee"];
+    
+    $activateEmployee->ajaxActivateEmployeeStatus();
 }
 
 /*validar no rep user */

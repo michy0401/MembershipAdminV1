@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">User Admin</h1>
+                    <h1 class="m-0">Payment Record Admin</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                        <li class="breadcrumb-item active">User</li>
+                        <li class="breadcrumb-item active">Payment Record</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -23,23 +23,21 @@
 
         <!-- Default box -->
         <div class="card">
-            <div class="card-header">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddUser">Add User</button>
-            </div>
+             <!-- <div class="card-header">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddPayment">Add Payment</button>
+            </div>-->
 
             <div class="card-body">
                 <div class="container-fluid">
                     <table class="table table-bordered table-striped" id="example1">
                         <thead>
                             <tr>
-                                <th style="width: 10px">#</th>
-                                <th>Nombre</th>
-                                <th>Usuario</th>
-                                <th>Foto</th>
-                                <th>Perfil</th>
-                                <th>Estado</th>
-                                <th>Ultimo Login</th>
-                                <th>Acciones</th>
+                                <th style="width: 10px">ID</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Status Transaction</th>
+                                <th>Date</th>
+                                <!-- <th>Acciones</th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -47,46 +45,40 @@
                                 $item = null;
                                 $value = null;
 
-                                $users = UserController::ctrShowUser($item, $value);
+                                $pays = PaymentRecordController::ctrShowPaymentRecord($item, $value);
 
-                                foreach($users as $key => $value){
+                                foreach($pays as $key => $value){
                                     echo '
                                     <tr>
                                         <td>'.$value["id"].'</td>
-                                        <td>'.$value["nombre"].'</td>
-                                        <td>'.$value["usuario"].'</td>';
+                                        <td>'.$value["nombre_cliente"].'</td>
+                                        <td>'.$value["monto"].'</td>';
 
-                                        if ($value["foto"] != ""){
-                                            echo '<td><img src="'.$value["foto"].'" class="img-thumbnail" width="40px"></td>';
-                                        } else{
-                                            echo '<td><img src="views/dist/img/user.jpg" class="img-thumbnail" width="40px"></td>';
-                                        }
-
-                                        echo '
-                                            <td>'.$value["cargo"].'</td>
-                                        ';
-
+                                    
+                                        
                                         echo '
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                    <select class="form-control form-control-sm selectEmployeeStatus" idEmployee="' . $value["id"] . '">
-                                                        <option value="1" ' . ($value["id_estado"] == 1 ? 'selected' : '') . '>Active</option>
-                                                        <option value="2" ' . ($value["id_estado"] == 2 ? 'selected' : '') . '>Inactive</option>
+                                                    <select class="form-control form-control-sm selectTransactionStatus" idCustomer="' . $value["id"] . '">
+                                                        <option value="9" ' . ($value["id_estado"] == 9 ? 'selected' : '') . '>Accepted</option>
+                                                        <option value="10" ' . ($value["id_estado"] == 10 ? 'selected' : '') . '>Denied</option>
+                                                        <option value="11" ' . ($value["id_estado"] == 11 ? 'selected' : '') . '>Pending</option>
                                                     </select>
                                                 </div>
-                                            </td>
+                                            </td>';
 
-                                        ';
-                                            
-                                        
+
+
                                         echo '
-                                            <td>'.$value["ultimo_login"].'</td>
-                                            <td>
+                                            <td>'.$value["payday"].'</td>';
+
+                                            /*<td>
                                                 <div class="btn-group">
-                                                    <button class="btn btn-warning btnEditUser" idUser="'.$value["id"].'" data-toggle="modal" data-target="#modalEditUser"><i class="fas fa-solid fa-pen"></i></button>
-                                                    <button class="btn btn-danger btnDeleteUser" idUser="'.$value["id"].'" photoUser="'.$value["foto"].'" username="'.$value["usuario"].'"><i class="fa fa-solid fa-trash"></i></button>
+                                                    <button class="btn btn-warning btnEditPay" idPay="'.$value["id"].'" data-toggle="modal" data-target="#modalEditPay"><i class="fas fa-solid fa-pen"></i></button>
+                                                    <button class="btn btn-danger btnDeletePay" idPay="'.$value["id"].'" ><i class="fa fa-solid fa-trash"></i></button>
                                                 </div>
-                                            </td>
+                                           </td>*/
+                                    echo '
                                     </tr>';
                                 }
 
@@ -111,7 +103,7 @@
 <!-- modal form -->
 <!-- modal agregar usuario -->
 
-<div class="modal fade" id="modalAddUser">
+<div class="modal fade" id="modalAddPayment">
 
     <div class="modal-dialog">
 
@@ -120,7 +112,7 @@
             <form method="post" enctype="multipart/form-data">
 
                 <div class="modal-header" style="background: #17a2b8; color:white;">
-                    <h4 class="modal-title">Add User</h4>
+                    <h4 class="modal-title">Add Payment</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -129,16 +121,6 @@
                 <div class="modal-body">
 
                     <div class="card-body">
-
-                        <!-- nombre del usuario --> 
-                        <div class="input-group mb-3">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Name" name="newName" required>
-                        </div>
                         <!-- user --> 
                         <div class="input-group mb-3">
                             <div class="input-group-append">
@@ -148,35 +130,38 @@
                             </div>
                             <input type="text" class="form-control" placeholder="Username" name="newUserName" id="newUserName" required>
                         </div>
-                        <!-- password --> 
+
+                        <!-- nombre del usuario --> 
                         <div class="input-group mb-3">
                             <div class="input-group-append">
                                 <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
+                                    <span class="fas fa-user"></span>
                                 </div>
                             </div>
-                            <input type="password" class="form-control" placeholder="Password" name="newPassword" required>
+                            <input type="text" class="form-control" placeholder="Name" name="newName" readonly>
                         </div>
-                        <!-- profile --> 
+                        
+                        <!-- monto a pagar --> 
                         <div class="input-group mb-3">
                             <div class="input-group-append">
                                 <div class="input-group-text">
-                                    <span class="fas fa-users"></span>
+                                    <span class="fas fa-dollar-sign"></span>
                                 </div>
                             </div>
-                            <select type="text" class="form-control" name="newProfile" required>
-                                <option value="">Seleccionar perfil</option>
-                                <option value="Manager">Manager</option>
-                                <option value="Seller">Seller</option>
-                            </select>
+                            <input type="number" class="form-control" placeholder="Amount" name="newName" required>
                         </div>
-                        <!-- photo --> 
+
+                        <!-- dia que se realizo transaccion --> 
                         <div class="input-group mb-3">
-                            <div class="panel">UPLOAD PHOTO</div>
-                            <input type="file" class="newPhoto" name="newPhoto">                               
-                            <p class="text-muted">Peso max de la foto 2MB</p>                                
-                            <img src="views/dist/img/user.jpg" class="img-thumbnail preview" width="100px" style="margin-top:50px;">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-calendar"></span>
+                                </div>
+                            </div>
+                            <input type="date" class="form-control" name="newName" required>
                         </div>
+                        
+                        
                         
 
                     </div>
@@ -186,7 +171,7 @@
 
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info">Save user</button>
+                    <button type="submit" class="btn btn-info">Save Payment</button>
                 </div>
 
                 <?php

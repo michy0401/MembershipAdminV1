@@ -67,70 +67,49 @@ $(".btnEditUser").click(function(){
 });
 
 /*activar usuario */
-$(".btnActivate").click(function(){
-    var idUser = $(this).attr("idUser");
-    var statusUser = $(this).attr("statusUser");
+$(".selectEmployeeStatus").change(function() {
+    var idEmployee = $(this).attr("idEmployee");  // ID del empleado
+    var statusEmployee = $(this).val();  // Estado seleccionado (1 = Active, 2 = Inactive)
 
     var datas = new FormData();
-    datas.append("activateId", idUser);
-    datas.append("activateUser", statusUser);
+    datas.append("activateIdEmployee", idEmployee);  // Agregar ID del empleado
+    datas.append("statusEmployee", statusEmployee);  // Agregar el nuevo estado
 
     $.ajax({
-        url: "ajax/user.ajax.php",
+        url: "ajax/user.ajax.php",  // URL del archivo PHP que manejará la actualización
         method: "POST",
         data: datas,
         cache: false,
         contentType: false,
         processData: false,
         dataType: "json",
-        success: function(answer){
-
-        }
-
-    });
-
-    if (statusUser == 2){
-        $(this).removeClass('btn-success');
-        $(this).addClass('btn-danger');
-        $(this).html('Inactivate');
-        $(this).attr('statusUser', 1);
-    } else{
-        $(this).removeClass('btn-danger');
-        $(this).addClass('btn-success');
-        $(this).html('Activate');
-        $(this).attr('statusUser', 2);
-    }
-});
-
-/*revisar usuario repetido*/
-$("#newUserName").change(function(){
-
-    $(".alert").remove();
-
-    var user = $(this).val();
-
-    var datas = new FormData();
-    datas.append("validateUser", user);
-    
-    $.ajax({
-        url: "ajax/user.ajax.php",
-        method: "POST",
-        data: datas,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success: function(answer){
-            if (answer){
-                $("#newUserName").parent().after('<div class = "alert alert-warning">Este usuario ya existe</div>');
-                $("#newUserName").val("");
-
+        success: function(answer) {
+            if(answer === "ok") {
+                Swal.fire({
+                    icon: "success",
+                    title: "Estado actualizado",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error al actualizar el estado",
+                    text: "Intente nuevamente."
+                });
             }
-
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX Error: " + error);  // Esto te ayudará a depurar posibles errores
+            Swal.fire({
+                icon: "error",
+                title: "Error en la comunicación con el servidor",
+                text: "Intente nuevamente."
+            });
         }
-
     });
 });
+
 
 /*borrar usuario */
 $(".btnDeleteUser").click(function(){

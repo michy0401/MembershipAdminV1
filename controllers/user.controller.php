@@ -42,7 +42,7 @@ class UserController {
 
                             if ($lastLogIn == "ok"){
                                 echo '<script> 
-                                    window.location = "dashboard";
+                                    window.location = "customer";
                                 </script>';
 
                             }

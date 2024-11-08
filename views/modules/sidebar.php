@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="dashboard" class="brand-link">
+  <a href="customer" class="brand-link">
     <img src="views\dist\img\logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">Member's Club</span>
   </a>
@@ -12,49 +12,42 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
             with font-awesome or any other icon font library -->
-        <li class="nav-item menu-open">
-          <a href="dashboard" class="nav-link active">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Dashboard
-            </p>
-          </a>
-        </li>
+        
                     
-        <li class="nav-header">APROBACIÓN DE MEMBRESÍA</li>
+        <li class="nav-header">MEMBERSHIP APPROVAL</li>
         <li class="nav-item">
           <a href="aprobarCliente" class="nav-link">
             <i class="nav-icon fas fa-solid fa-thumbs-up"></i>
             <p>
-              Aprobación Membresía
+              Membership Approval
             </p>
           </a>
         </li>
                     
-        <li class="nav-header">CLIENTES</li>
+        <li class="nav-header">CUSTOMERS</li>
         <li class="nav-item">
-          <a href="cliente" class="nav-link">
+          <a href="customer" class="nav-link">
             <i class="nav-icon fas fa-solid fa-user"></i>
             <p>
-              Clientes
+              Customer
             </p>
           </a>
         </li>
-        <li class="nav-header">PAGO DE MEMBRESÍA</li>
+        <li class="nav-header">MEMBERSHIP PAYMENTS</li>
         <li class="nav-item">
-          <a href="resgistroPago" class="nav-link">
+          <a href="paymentRecord" class="nav-link">
             <i class="nav-icon fas fa-solid fa-file-invoice-dollar"></i>
             <p>
-              Registros de Pagos
+              Payments Record
             </p>
           </a>
         </li>
-        <li class="nav-header">USUARIOS</li>
+        <li class="nav-header">USER</li>
         <li class="nav-item">
           <a href="user" class="nav-link">
             <i class="nav-icon fas fa-solid fa-users"></i>
             <p>
-              Usuarios
+              User
             </p>
           </a>
         </li>

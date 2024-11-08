@@ -75,7 +75,7 @@ session_start();
 
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition dark-mode sidebar-collapse sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
 
     <?php
@@ -85,18 +85,19 @@ session_start();
         include 'modules/sidebar.php';
         if(isset($_GET["ruta"])){
 
-          if($_GET["ruta"] == "dashboard" ||
+          if(//$_GET["ruta"] == "dashboard" ||
+            $_GET["ruta"] == "customer"||
             $_GET["ruta"] == "user"||
-            $_GET["ruta"] == "cliente"||
             $_GET["ruta"] == "aprobarCliente"||
-            $_GET["ruta"] == "registroPago"||
+            $_GET["ruta"] == "paymentRecord"||
+            $_GET["ruta"] == "customerPayments"||
             $_GET["ruta"] == "logOut"){
             include "modules/".$_GET["ruta"].".php";
           }else{
             include "modules/404.php";
           }
         }else{
-          include "modules/dashboard.php";
+          include "modules/customer.php";
         }
       
         include 'modules/footer.php';
@@ -113,5 +114,7 @@ session_start();
  
 <script src="views/js/template.js"></script>
 <script src="views/js/user.js"></script>
+<script src="views/js/paymentRecord.js"></script>
+<script src="views/js/customer.js"></script>
 </body>
 </html>

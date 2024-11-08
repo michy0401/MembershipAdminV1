@@ -5,107 +5,98 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">User Admin</h1>
+                    <h1 class="m-0">
+                        <?php
+                        // Obtener el id del cliente desde la URL
+                        if (isset($_GET['id'])) {
+                            $id = $_GET['id'];
+                            
+                            // Realizar la consulta para obtener el nombre del cliente
+                            $query = "SELECT nombre FROM cliente WHERE id = :id";
+                            $stmt = $pdo->prepare($query); // Asumiendo que $pdo es la conexión a la base de datos
+                            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                            $stmt->execute();
+                            $cliente = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                            // Mostrar el nombre del cliente si existe
+                            if ($cliente) {
+                                echo "Customer Admin - " . $cliente['nombre'];
+                            } else {
+                                echo "Customer Admin";
+                            }
+                        } else {
+                            echo "Customer Admin";
+                        }
+                        ?>
+                    </h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                        <li class="breadcrumb-item active">User</li>
+                        <li class="breadcrumb-item"><a href="customer">Customer</a></li>
+                        <li class="breadcrumb-item active">Payments Customer</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
     <!-- Main content -->
     <section class="content">
-
         <!-- Default box -->
         <div class="card">
-            <div class="card-header">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddUser">Add User</button>
-            </div>
-
             <div class="card-body">
                 <div class="container-fluid">
                     <table class="table table-bordered table-striped" id="example1">
                         <thead>
                             <tr>
-                                <th style="width: 10px">#</th>
-                                <th>Nombre</th>
-                                <th>Usuario</th>
-                                <th>Foto</th>
-                                <th>Perfil</th>
-                                <th>Estado</th>
-                                <th>Ultimo Login</th>
-                                <th>Acciones</th>
+                                <th style="width: 10px">ID</th>
+                                <th>Amount Paid</th>
+                                <th>Transaction Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                $item = null;
-                                $value = null;
+                                if (isset($id)) {
+                                    // Obtener pagos del cliente con el id de la URL
+                                    $payments = PaymentRecordController::ctrShowPaymentRecordsByClient($id);
 
-                                $users = UserController::ctrShowUser($item, $value);
-
-                                foreach($users as $key => $value){
-                                    echo '
-                                    <tr>
-                                        <td>'.$value["id"].'</td>
-                                        <td>'.$value["nombre"].'</td>
-                                        <td>'.$value["usuario"].'</td>';
-
-                                        if ($value["foto"] != ""){
-                                            echo '<td><img src="'.$value["foto"].'" class="img-thumbnail" width="40px"></td>';
-                                        } else{
-                                            echo '<td><img src="views/dist/img/user.jpg" class="img-thumbnail" width="40px"></td>';
+                                    if ($payments) {
+                                        foreach($payments as $payment) {
+                                            echo '
+                                            <tr>
+                                                <td>' . $payment["id"] . '</td>
+                                                <td>' . $payment["monto"] . '</td>
+                                                <td>' . $payment["id_estado"] . '</td>
+                                                <td>' . $payment["payday"] . '</td> <!-- Asegúrate de que este campo exista en tu base de datos -->
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-warning btnEditCustomer" idCustomer="' . $payment["id"] . '" data-toggle="modal" data-target="#modalEditCustomer">
+                                                            <i class="fas fa-solid fa-pen"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btnDeleteCustomer" idCustomer="' . $payment["id"] . '">
+                                                            <i class="fa fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>';
                                         }
-
-                                        echo '
-                                            <td>'.$value["cargo"].'</td>
-                                        ';
-
-                                        echo '
-                                            <td>
-                                                <div class="d-flex justify-content-center">
-                                                    <select class="form-control form-control-sm selectEmployeeStatus" idEmployee="' . $value["id"] . '">
-                                                        <option value="1" ' . ($value["id_estado"] == 1 ? 'selected' : '') . '>Active</option>
-                                                        <option value="2" ' . ($value["id_estado"] == 2 ? 'selected' : '') . '>Inactive</option>
-                                                    </select>
-                                                </div>
-                                            </td>
-
-                                        ';
-                                            
-                                        
-                                        echo '
-                                            <td>'.$value["ultimo_login"].'</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-warning btnEditUser" idUser="'.$value["id"].'" data-toggle="modal" data-target="#modalEditUser"><i class="fas fa-solid fa-pen"></i></button>
-                                                    <button class="btn btn-danger btnDeleteUser" idUser="'.$value["id"].'" photoUser="'.$value["foto"].'" username="'.$value["usuario"].'"><i class="fa fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                    </tr>';
+                                    } else {
+                                        echo '<tr><td colspan="5">No payments found for this customer.</td></tr>';
+                                    }
                                 }
-
                             ?>
-
                         </tbody>
                     </table>
-            
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
     </section>
-    <!-- /.content -->
-
 </div>
-<!-- /.content-wrapper -->
+
+
+
 
 
 <!-- modal form -->

@@ -98,4 +98,22 @@ class UserModel{
 
 
     }
+
+
+    static public function mdlUpdateEmployeeStatus($table, $item1, $value1, $item2, $value2) {
+        $stmt = Connection::connect()->prepare("UPDATE $table SET $item1 = :$item1 WHERE $item2 = :$item2");
+    
+        $stmt->bindParam(":".$item1, $value1, PDO::PARAM_INT);
+        $stmt->bindParam(":".$item2, $value2, PDO::PARAM_INT);
+    
+        if ($stmt->execute()) {
+            return "ok"; // Si la actualización es exitosa
+        } else {
+            return "error"; // Si ocurre algún problema
+        }
+    
+        $stmt->close();
+        $stmt = null;
+    }
+    
 }
